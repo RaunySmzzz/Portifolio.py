@@ -3,9 +3,9 @@ import html
 from dotenv import load_dotenv
 import resend
 from flask import Flask, render_template, request, jsonify
-from livereload import Server
 
-# Lê as variáveis do arquivo .env (chave do Resend e e-mail de destino)
+# Lê as variáveis do arquivo .env (no seu computador).
+# No Render, elas vêm do painel "Environment" e o .env não existe.
 load_dotenv()
 
 resend.api_key = os.getenv('RESEND_API_KEY')
@@ -33,7 +33,7 @@ def enviar_mensagem():
         return jsonify({'erro': 'Todos os campos são obrigatórios.'}), 400
 
     if not resend.api_key or not EMAIL_DESTINO:
-        print('ERRO: RESEND_API_KEY ou EMAIL_DESTINO não configurados no .env')
+        print('ERRO: RESEND_API_KEY ou EMAIL_DESTINO não configurados')
         return jsonify({'erro': 'Servidor de e-mail não configurado.'}), 500
 
     # html.escape evita que alguém injete código HTML no seu e-mail
@@ -48,7 +48,7 @@ def enviar_mensagem():
         resend.Emails.send({
             'from': 'Portfólio <onboarding@resend.dev>',
             'to': [EMAIL_DESTINO],
-            'reply_to': email,  # ao clicar em "Responder", vai direto para quem escreveu
+            'reply_to': email,
             'subject': f'Nova mensagem do portfólio - {nome}',
             'html': corpo,
         })
@@ -60,6 +60,10 @@ def enviar_mensagem():
 
 
 if __name__ == '__main__':
+    # Só roda no seu computador (python app.py).
+    # No Render, quem inicia o site é o gunicorn e este bloco é ignorado.
+    from livereload import Server
+
     server = Server(app.wsgi_app)
     server.watch('templates/*.html')
     server.watch('static/*.css')
