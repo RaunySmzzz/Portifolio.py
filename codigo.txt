@@ -1,0 +1,8 @@
+portfolio/
+├── app.py              ← o "cérebro" (Python/Flask)
+├── templates/
+│   └── index.html      ← a "estrutura" (conteúdo e organização)
+└── static/
+    ├── style.css        ← a "aparência" (visual)
+    └── script.js        ← o "comportamento" (interatividade)
+
