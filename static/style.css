@@ -61,10 +61,12 @@ a {
     padding: 2rem;
     gap: 2rem 10rem;
     flex-wrap: wrap;
-    background-image: linear-gradient(rgba(15, 15, 26, 0.85), rgba(15, 15, 26, 0.85)),
-        url('img/cidade.jpg');
     background-size: cover;
     background-position: center;
+    /*Fundo animado*/
+    background: linear-gradient(135deg, #000000, #1b1740, #836be4, #1b1740, #000000);
+    background-size: 300% 300%;
+    animation: gradientMove 18s ease-in-out infinite;
 }
 
 .hero-image img {
@@ -82,7 +84,7 @@ a {
 }
 
 .hero h1 span {
-    color: #7c5cff;
+    color: #a693f3;
 }
 
 .hero p {
@@ -221,5 +223,61 @@ a {
 
     .section h2 {
         font-size: 1.6rem;
+    }
+}
+
+/* Ícones de redes sociais */
+.hero-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+}
+
+.social-links a {
+    display: inline-flex;
+    color: #b3b3cc;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.social-links a:hover {
+    color: #7c5cff;
+    transform: translateY(-3px);
+}
+
+.social-links svg {
+    width: 32px;
+    height: 32px;
+    fill: currentColor;
+}
+
+.footer .social-links {
+    margin-bottom: 1rem;
+}
+
+/* Fundo animado do hero */
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero {
+        animation: none;
     }
 }
